@@ -3,21 +3,27 @@
  */
 
 var nodemailer = require("nodemailer"),
-	mongoose = require('mongoose');
+	mongoose = require('mongoose'),
+	errors = require('./errors.js');
 
-var mail = nodemailer.mail,
-	Page = mongoose.model('Page');
 
 module.exports = function(app){
 	
+	var mail = nodemailer.mail,
+		Page = mongoose.model('Page');
+	
 	app.get('/', function(req, res, next) {
-		
-		Page.findById('mtanevski-portfolio-webapp', function(err, page){
+
+		Page.findOne({_id: 'mtanevski-portfolio-webapp'}, function(err, page){
 			if(err) next(err);
 
 			if(page){
 				res.charset = 'utf-8';
+				page.isDev = process.env.NODE_MODE && process.env.NODE_MODE.toLowerCase() === 'dev' ? true : false;
+				
 				res.render('index', page);
+			}else{
+				next(new Error('Page not found in database'));
 			}
 		});
 	});

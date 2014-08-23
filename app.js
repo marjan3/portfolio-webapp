@@ -2,11 +2,11 @@
  * Module dependencies.
  */
 var express = require('express'),
-  routes = require('./routes'),
+	routes = require('./routes'),
   mongoose = require('mongoose');
 
 // Environment variables configuration
-var isDev = process.env.NODE_MODE && process.env.MODE.toLowerCase() === 'dev' ? true : false;
+var isDev = process.env.NODE_MODE && process.env.NODE_MODE.toLowerCase() === 'dev' ? true : false;
 var port = process.env.PORT || 3000;
 var mongoHq = {
 		user: process.env.MONGOHQ_USER,
@@ -16,11 +16,44 @@ var mongoHq = {
 		name: process.env.MONGOHQ_NAME,
 }
 
-mongoose.connect('mongodb://' + user + ':' + pass + '@' + host + ':' + port + '/' + name, function(err){
-	if(err) throw err;
-	if(isDev) console.log('connected to mongoose!');
+// Create server
+var app = module.exports = express.createServer();
 
-	var app = module.exports = express.createServer();
+//Page model
+var pageSchema = new mongoose.Schema({
+	_id: String,
+	title: String,
+	titles: [String],
+	projects:[{
+	    title : String,
+	    imgUrl : String,
+	    htmlDesc: String,
+	    client: String,
+	    clientUrl: String,
+	    date: Date,
+	    service: String
+	     }],
+	aboutCol1: String,
+	aboutCol2: String,
+	htmlLocation: String,
+	skypeUrl: String,
+	linkedInUrl: String,
+	gPlusUrl: String,
+	twitterUrl: String,
+	githubUrl: String,
+    published: {type: Date},
+    author: String,
+    authorUrl: String,
+    aboutAuthor: String,
+    copyright: String
+});
+ 
+mongoose.model('Page', pageSchema);
+
+mongoose.connect('mongodb://' + mongoHq.user + ':' + mongoHq.pass + '@' + mongoHq.host + ':' + mongoHq.port + '/' + mongoHq.name, function(err){
+	if(err) throw err;
+	
+	if(isDev) console.log('connected to mongoose!');
 
 	// Configuration
 	app.configure(function(){
@@ -45,14 +78,6 @@ mongoose.connect('mongodb://' + user + ':' + pass + '@' + host + ':' + port + '/
 		});
 	}
 	
-	// Routes
-	if(isDev) {
-		console.log("Routes: ");
-		for(var route in routes){
-			console.log(' -' + route);
-		}
-	}
-
 	routes(app);
 
 	app.listen(port);
@@ -61,10 +86,10 @@ mongoose.connect('mongodb://' + user + ':' + pass + '@' + host + ':' + port + '/
 		console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 	}
 	
-	mongoose.disconnect();
+	//mongoose.disconnect();
 	
 	if(isDev){
-		console.log("mongoose disconnected!", app.address().port, app.settings.env);
+		console.log("mongoose disconnected!");
 	}
 })
 
