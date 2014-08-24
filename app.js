@@ -78,19 +78,15 @@ mongoose.connect('mongodb://' + mongoHq.user + ':' + mongoHq.pass + '@' + mongoH
 		});
 	}
 	
-	routes(app);
+	routes(app,isDev);
 
 	app.listen(port);
 
-	if(isDev){
-		console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
-	}
-	
-	//mongoose.disconnect();
-	
-	if(isDev){
-		console.log("mongoose disconnected!");
-	}
-})
+	if(isDev) console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
+
+	/*mongoose.disconnect();
+	if(isDev) console.log("mongoose disconnected!");*/	
+});
+
 
 

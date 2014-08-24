@@ -33,7 +33,9 @@
       <% } else { %>
 	      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
       <% } %>
-      	  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      	  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0
+      	  
+      	  /html5shiv.js"></script>
     <![endif]-->
 
 </head>
@@ -150,11 +152,11 @@
             </div>
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2">
-                    <form role="form" id="contact-form">
+                    <form role="form" id="contact-form"  action="mailto:marjantanevski@gmail.com" enctype="text/plain">
                         <div class="row">
                             <div class="form-group col-xs-12 floating-label-form-group">
-                                <label for="name">Name</label>
-                                <input class="form-control" type="text" name="name" placeholder="Name">
+                                <label for="subject">Name</label>
+                                <input class="form-control" type="text" name="subject" placeholder="Name">
                             </div>
                         </div>
                         <div class="row">
@@ -165,8 +167,8 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-xs-12 floating-label-form-group">
-                                <label for="message">Message</label>
-                                <textarea name="message" placeholder="Message" class="form-control" rows="5"></textarea>
+                                <label for="body">Message</label>
+                                <textarea name="body" placeholder="Message" class="form-control" rows="5"></textarea>
                             </div>
                         </div>
                         <br>
@@ -296,47 +298,13 @@
     	$(document).ready(function(){
     	
     	$('#email-warning-alert').first().hide();
-    	
-    	function handleSuccess(json){
-    		if(json && json.emailSent==='true'){
-    			$('#email-warning-alert').first().hide();
-    		}else{
-    			$('#email-warning-alert').first().show();
-    		}
-    	}
-    	
-    	function handleError(errorThrown){
-    		alert(errorThrown);
-    	}
-    	
-    	function sendData($contactForm){
-    	   var data = {
-		  		name : $contactForm.find('.form-control[name=name]').val(),
-		  		email:  $contactForm.find('.form-control[name=email]').val(),
-		  		message: $contactForm.find('textarea[name=message]').val()
-		   };
-		  	
-			return $.ajax({
-			  type: "POST",
-			  url: '/email',
-			  data: data,
-			   success: function(json)
-			    {
-			        handleSuccess(json);
-			    },
-			    error: function (errorThrown)
-			    {
-			 		handleError(errorThrown);
-			    }
-			});
-    	}
-    	
+    	    	
     	var $contactForm = $('#contact-form');
     	
     		$contactForm.validate({
     		
 	    		rules:{
-	 				name: {
+	 				subject: {
 	    			 	required: true,
 	    			 	minlength: 3
 	  				},
@@ -344,7 +312,7 @@
 	    				required: true,
 	    				email:true
 	  				},
-	  				message: {
+	  				body: {
 	  				    required: true,
 	    				minlength: 5
 	  				}
@@ -364,10 +332,9 @@
 		  		$('#email-warning-alert').first().hide();
 		  		if ($contactForm.valid()) {  // checks form for validity
     				var $sendBtn = $(this).find('#send-btn').first();
-			  			$sendBtn.button('loading');
-			  		sendData($contactForm, $sendBtn).always(function () {
-				      $sendBtn.button('reset');
-				    });
+			  		$sendBtn.button('loading');
+			  		$contactForm[0].submit();
+			  		$sendBtn.button('reset');
 				    $contactForm[0].reset();
 		        } 
 		  });

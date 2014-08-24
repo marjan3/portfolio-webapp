@@ -2,7 +2,7 @@
   "name": "mtanevski",
   "version": "0.0.1",
   "private": true,
-  "description": "Small node.js single page web application to showcase my work, a professional looking to attract clients, looking to share your projects, this application ",
+  "description": "Small node.js single page web application to showcase my work, a professional looking to attract clients, looking to share projects, share this application...",
   "author": "Marjan Tanevski <marjantanevski@gmail.com>",
   "script": {
     "test": "",
@@ -27,8 +27,7 @@
   "dependencies": {
     "ejs": ">= 0.0.1",
     "express": "2.5.1",
-    "mongoose": "^3.8.15",
-    "nodemailer": ">= 0.7.1"
+    "mongoose": "^3.8.15"
   },
   "subdomain": "heroku",
   "license": "none"
