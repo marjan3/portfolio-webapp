@@ -27,7 +27,7 @@
   "dependencies": {
     "ejs": ">= 0.0.1",
     "express": "2.5.1",
-    "mongoose": "^3.8.15"
+    "mongoose": "^5.10.2"
   },
   "subdomain": "heroku",
   "license": "none"
