@@ -1,9 +1,9 @@
 {
-  "name": "mtanevski",
+  "name": "@mtanevski/portfolio-webapp",
   "version": "0.0.1",
   "private": true,
   "description": "Small node.js single page web application to showcase my work, a professional looking to attract clients, looking to share projects, share this application...",
-  "author": "Marjan Tanevski <marjantanevski@gmail.com>",
+  "author": "Marjan Tanevski <marjantanevski@outlook.com>",
   "script": {
     "test": "",
     "start": "node app.js",
@@ -14,10 +14,10 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Tanevski3/mtanevski-portfolio-webapp.git"
+    "url": "https://github.com/Tanevski3/portfolio-webapp.git"
   },
   "bugs": {
-    "url": "https://github.com/Tanevski3/mtanevski-portfolio-webapp/issues"
+    "url": "https://github.com/Tanevski3/portfolio-webapp/issues"
   },
   "keywords": [
     "simple",
